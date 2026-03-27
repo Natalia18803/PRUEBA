@@ -1,0 +1,31 @@
+[
+  {
+    "_id": "698819ee8dc2785aa15a748d",
+    "nombre": "Test User",
+    "email": "test@example.com",
+    "fecha_nacimiento": "1990-05-15T00:00:00.000Z",
+    "estado": "activo",
+    "fecha_registro": "2026-02-08T05:06:54.773Z",
+    "__v": 0
+  },
+  {
+    "_id": "69893c9fa3d60218d9b8d6d9",
+    "nombre": "Juan Pérez",
+    "email": "juan@example.com",
+    "fecha_nacimiento": "1990-05-15T00:00:00.000Z",
+    "estado": "activo",
+    "fecha_registro": "2026-02-09T01:47:11.146Z",
+    "__v": 0
+  },
+  {
+    "_id": "69b0d52b6cf99efbbc900133",
+    "nombre": "Admin",
+    "email": "admin@admin.com",
+    "password": "$2b$10$88Niu1NLMEzzDLPigkwf3OZye.sr0vQkGd00uMBhZuQpZ05GxC8gq",
+    "fecha_nacimiento": "1990-01-01T00:00:00.000Z",
+    "estado": "activo",
+    "rol": "usuario",
+    "fecha_registro": "2026-03-11T02:36:27.341Z",
+    "__v": 0
+  }
+]
