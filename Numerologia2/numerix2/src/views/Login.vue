@@ -25,9 +25,37 @@ const togglePasswordVisibility = () => {
 const handleAction = async () => {
   // Verificación básica
   if (isLoginMode.value) {
-    if (userEmail.value.trim() === '' || userPassword.value.trim() === '') return;
+    if (userEmail.value.trim() === '' || userPassword.value.trim() === '') {
+        return Swal.fire({
+            title: 'Atención',
+            text: 'Ingresa tu identificador y llave cósmica.',
+            icon: 'warning',
+            background: '#0a0b1e',
+            color: '#fff',
+            confirmButtonColor: '#dbc065'
+        });
+    }
   } else {
-    if (userEmail.value.trim() === '' || userPassword.value.trim() === '' || userName.value.trim() === '') return;
+    if (userEmail.value.trim() === '' || userPassword.value.trim() === '' || userName.value.trim() === '' || !userBirthDate.value) {
+        return Swal.fire({
+            title: 'Atención',
+            text: 'Todos los campos son obligatorios para crear tu identidad.',
+            icon: 'warning',
+            background: '#0a0b1e',
+            color: '#fff',
+            confirmButtonColor: '#dbc065'
+        });
+    }
+    if (userBirthDate.value > todayDate) {
+        return Swal.fire({
+            title: 'Línea de tiempo inválida',
+            text: 'La fecha de nacimiento no puede ser futura.',
+            icon: 'warning',
+            background: '#0a0b1e',
+            color: '#fff',
+            confirmButtonColor: '#dbc065'
+        });
+    }
   }
 
   isLoggingIn.value = true;
@@ -111,7 +139,7 @@ const handleAction = async () => {
       <p>ACCESO AL MANUSCRITO CELESTIAL</p>
     </header>
 
-    <form class="portal-card" @submit.prevent="handleAction">
+    <form class="portal-card" @submit.prevent="handleAction" novalidate>
       <h2 class="portal-title">
         {{ isLoginMode ? 'Identifícate' : 'Crea tu Identidad' }}
       </h2>

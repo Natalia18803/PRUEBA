@@ -158,7 +158,7 @@
           <!-- Tab: Add Admin -->
           <div v-if="activeTab === 'addAdmin'" class="add-admin-form">
             <h2 class="cosmic-label" style="font-size: 1.2rem; margin-bottom: 2rem; text-align: center;">Registrar Nuevo Administrador</h2>
-            <form @submit.prevent="registerAdmin">
+            <form @submit.prevent="registerAdmin" novalidate>
               <div class="cosmic-input-group">
                 <label class="cosmic-label">Nombre Completo</label>
                 <input type="text" v-model="newAdmin.nombre" class="cosmic-input" required />
@@ -291,6 +291,28 @@ const deleteUser = async (user) => {
 };
 
 const registerAdmin = async () => {
+    if (!newAdmin.value.nombre || !newAdmin.value.email || !newAdmin.value.password || !newAdmin.value.fecha_nacimiento) {
+        return Swal.fire({
+            title: 'Campos Incompletos',
+            text: 'Todos los campos son obligatorios para crear un nuevo administrador.',
+            icon: 'warning',
+            background: '#0a0b1e',
+            color: '#fff',
+            confirmButtonColor: '#dbc065'
+        });
+    }
+
+    if (newAdmin.value.fecha_nacimiento > todayDate) {
+        return Swal.fire({
+            title: 'Línea de tiempo inválida',
+            text: 'La fecha de nacimiento no puede ser futura.',
+            icon: 'warning',
+            background: '#0a0b1e',
+            color: '#fff',
+            confirmButtonColor: '#dbc065'
+        });
+    }
+
     try {
         await api.post('/api/auth/registro', {
             ...newAdmin.value,
