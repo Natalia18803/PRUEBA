@@ -21,8 +21,16 @@ const pagoSchema = new mongoose.Schema({
     },
     metodo: {
         type: String,
-        enum: ['tarjeta', 'efectivo', 'transferencia'],
         required: true
+    },
+    mercadopago_id: {
+        type: String,
+        unique: true,
+        sparse: true
+    },
+    estado_pago: {
+        type: String,
+        default: 'pendiente'
     }
 });
 

@@ -23,6 +23,7 @@ import usuarioRoutes from './routes/usuarioRoutes.js';
 import pagoRoutes from './routes/pagoRoutes.js';
 import lecturaRoutes from './routes/lecturaRoutes.js';
 import authRoutes from './routes/authRoutes.js';
+import mercadopagoRoutes from './routes/mercadopago.js';
 import { validarJWT } from './middlewares/validar-jwt.js';
 
 const app = express();
@@ -63,6 +64,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/usuarios', usuarioRoutes);
 app.use('/api/pagos', pagoRoutes);
 app.use('/api/lecturas', lecturaRoutes);
+app.use('/api/mercadopago', mercadopagoRoutes);
 
 // Ruta de prueba
 app.get('/', (req, res) => {
