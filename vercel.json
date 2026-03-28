@@ -15,16 +15,5 @@
       "src": "/(.*)",
       "dest": "index.js"
     }
-  ],
-  "env": {
-    "NODE_ENV": "production",
-    "MONGO_URI": "@mongo_uri",
-    "JWT_SECRET": "@jwt_secret",
-    "MERCADOPAGO_ACCESS_TOKEN": "@mercadopago_access_token",
-    "MERCADOPAGO_PUBLIC_KEY": "@mercadopago_public_key",
-    "FRONTEND_URL": "@frontend_url",
-    "BACKEND_URL": "@backend_url",
-    "EMAIL_USER": "@email_user",
-    "BREVO_API_KEY": "@brevo_api_key"
-  }
+  ]
 }

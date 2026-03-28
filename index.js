@@ -15,8 +15,7 @@ const __dirname = path.dirname(__filename);
 
 // Validar variables de entorno críticas
 if (!process.env.JWT_SECRET) {
-    console.error('CRITICAL ERROR: JWT_SECRET no está definido en el archivo .env');
-    process.exit(1);
+    console.error('CRITICAL WARNING: JWT_SECRET no está definido en las variables de entorno (Dashboard). Configurarlo inmediatamente.');
 }
 
 import usuarioRoutes from './routes/usuarioRoutes.js';
@@ -36,8 +35,7 @@ app.use(cors({
     allowedHeaders: ['Content-Type', 'Authorization', 'x-token']
 }));
 
-// 1. Indicar la carpeta de archivos estáticos
-app.use(express.static(path.join(__dirname, 'public')));
+// El frontend ahora debe servirse en un despliegue de Vercel separado para evitar problemas de Lambda.
 
 // Conectar a MongoDB de forma segura para Serverless (Vercel)
 app.use(async (req, res, next) => {
@@ -85,10 +83,13 @@ app.get('/api/health', async (req, res) => {
     }
 });
 
-// 2. Manejar rutas del Frontend (Importante para SPAs como React o Vue)
-// Esto asegura que si refrescas la página en /dashboard, el backend devuelva el index.html
+// 2. Ruta comodín del Backend para atrapar cualquier petición no API
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    res.status(200).json({ 
+        message: 'Aetheric Oracle Backend API',
+        status: 'Online',
+        timestamp: new Date().toISOString()
+    });
 });
 
 // Middleware Global de Manejo de Errores
