@@ -29,7 +29,11 @@ const app = express();
 
 // Middleware para parsear JSON
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: '*', // En producción podrías especificar tu dominio de Vercel
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 // 1. Indicar la carpeta de archivos estáticos
 app.use(express.static(path.join(__dirname, 'public')));
@@ -87,20 +91,22 @@ app.use((err, req, res, next) => {
     });
 });
 
-// Puerto del servidor
-const PORT = process.env.PORT || 3000;
+// Iniciar servidor solo si no estamos en Vercel
+if (process.env.NODE_ENV !== 'production') {
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => {
+        console.log(`Servidor corriendo en http://localhost:${PORT}`);
+        console.log('');
+        console.log('RUTAS PUBLICAS (sin token):');
+        console.log('  POST /api/auth/registro - Registro de usuario');
+        console.log('  POST /api/auth/login    - Login de usuario');
+        console.log('');
+        console.log('RUTAS PROTEGIDAS (con token):');
+        console.log('  GET  /api/auth          - Obtener usuario autenticado');
+        console.log('  /api/usuarios/*         - Rutas de usuarios');
+        console.log('  /api/pagos/*            - Rutas de pagos');
+        console.log('  /api/lecturas/*         - Rutas de lecturas');
+    });
+}
 
-// Iniciar servidor
-app.listen(PORT, () => {
-    console.log(`Servidor corriendo en http://localhost:${PORT}`);
-    console.log('');
-    console.log('RUTAS PUBLICAS (sin token):');
-    console.log('  POST /api/auth/registro - Registro de usuario');
-    console.log('  POST /api/auth/login    - Login de usuario');
-    console.log('');
-    console.log('RUTAS PROTEGIDAS (con token):');
-    console.log('  GET  /api/auth          - Obtener usuario autenticado');
-    console.log('  /api/usuarios/*         - Rutas de usuarios');
-    console.log('  /api/pagos/*            - Rutas de pagos');
-    console.log('  /api/lecturas/*         - Rutas de lecturas');
-});
+export default app;

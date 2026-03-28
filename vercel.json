@@ -1,0 +1,24 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "index.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "index.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "index.js"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production",
+    "MONGO_URI": "mongodb+srv://Natalia:kinher1013@natalia.ksrcic0.mongodb.net/Numerologia",
+    "JWT_SECRET": "tu_secreto_muy_seguro_con_al_menos_32_caracteres"
+  }
+}
