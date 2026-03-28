@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Sistema de Numerología con Lecturas Inteligentes y Membresía Mensual
 
 ## Descripción
@@ -51,3 +52,6 @@ Este proyecto es una API REST desarrollada en Node.js con Express y MongoDB para
 - Lectura principal se genera una sola vez por usuario
 - Pagos activan automáticamente la membresía por 30 días
 - Verificación diaria de vencimientos de membresía
+=======
+# PRUEBA
+>>>>>>> f695449db66942a0cb355102d4147184d510fc88
