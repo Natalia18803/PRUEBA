@@ -12,6 +12,14 @@ export const crearPreferencia = async (req, res) => {
 
         configureMercadoPago();
 
+        // Detectar la URL actual del servidor dinámicamente — funciona con cualquier URL de Vercel
+        const protocol = req.headers['x-forwarded-proto'] || 'https';
+        const host = req.headers['x-forwarded-host'] || req.headers.host;
+        const backendUrl = `${protocol}://${host}`;
+        
+        // Para el frontend usamos la misma URL base (mismo dominio)
+        const frontendUrl = process.env.FRONTEND_URL || backendUrl;
+
         const preference = await mercadopago.preferences.create({
             items: [{
                 title: titulo,
@@ -20,13 +28,13 @@ export const crearPreferencia = async (req, res) => {
                 currency_id: "COP"
             }],
             back_urls: {
-                success: `${process.env.FRONTEND_URL}/#/dashboard?payment=success`,
-                failure: `${process.env.FRONTEND_URL}/#/dashboard?payment=failure`,
-                pending: `${process.env.FRONTEND_URL}/#/dashboard?payment=pending`
+                success: `${frontendUrl}/#/dashboard?payment=success`,
+                failure: `${frontendUrl}/#/dashboard?payment=failure`,
+                pending: `${frontendUrl}/#/dashboard?payment=pending`
             },
             auto_return: "approved",
             external_reference: usuarioId,
-            notification_url: `${process.env.BACKEND_URL}/api/mercadopago/webhook`
+            notification_url: `${backendUrl}/api/mercadopago/webhook`
         });
 
         res.json({
