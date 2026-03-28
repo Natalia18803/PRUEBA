@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "build:frontend": "cd Numerologia2/numerix2 && npm install && npm run build",
+    "build:frontend": "cd Numerologia2/numerix2 && npm install && npx vite build --outDir ../../public --emptyOutDir",
     "build": "npm run build:frontend"
   },
   "keywords": [],

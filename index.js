@@ -35,7 +35,8 @@ app.use(cors({
     allowedHeaders: ['Content-Type', 'Authorization', 'x-token']
 }));
 
-// El frontend ahora debe servirse en un despliegue de Vercel separado para evitar problemas de Lambda.
+// 1. Indicar la carpeta de archivos estáticos (Frontend Compilado)
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Conectar a MongoDB de forma segura para Serverless (Vercel)
 app.use(async (req, res, next) => {
@@ -64,10 +65,7 @@ app.use('/api/pagos', pagoRoutes);
 app.use('/api/lecturas', lecturaRoutes);
 app.use('/api/mercadopago', mercadopagoRoutes);
 
-// Ruta de prueba
-app.get('/', (req, res) => {
-    res.send('API de Numerologia funcionando - Registro sin token requerido');
-});
+// Rutas de la API eliminada de la raíz para evitar choque con el frontend
 
 // Ruta de health check
 app.get('/api/health', async (req, res) => {
@@ -83,13 +81,10 @@ app.get('/api/health', async (req, res) => {
     }
 });
 
-// 2. Ruta comodín del Backend para atrapar cualquier petición no API
+// 2. Manejar rutas del Frontend (Importante para SPAs como React o Vue)
+// Esto asegura que si refrescas la página en cualquier ruta, el backend devuelva el index.html
 app.get('*', (req, res) => {
-    res.status(200).json({ 
-        message: 'Aetheric Oracle Backend API',
-        status: 'Online',
-        timestamp: new Date().toISOString()
-    });
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 // Middleware Global de Manejo de Errores
