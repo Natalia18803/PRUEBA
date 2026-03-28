@@ -19,6 +19,10 @@
   "env": {
     "NODE_ENV": "production",
     "MONGO_URI": "mongodb+srv://Natalia:kinher1013@natalia.ksrcic0.mongodb.net/Numerologia",
-    "JWT_SECRET": "tu_secreto_muy_seguro_con_al_menos_32_caracteres"
+    "JWT_SECRET": "tu_secreto_muy_seguro_con_al_menos_32_caracteres",
+    "MERCADOPAGO_ACCESS_TOKEN": "TEST-332120346748372-031122-e1466d6aaa2e111b853749e0337da326-2681293560",
+    "MERCADOPAGO_PUBLIC_KEY": "TEST-c8281938-4157-4507-a25c-300d92d097df",
+    "FRONTEND_URL": "https://prueba-iktfvtgml-natalia18803s-projects.vercel.app",
+    "BACKEND_URL": "https://prueba-iktfvtgml-natalia18803s-projects.vercel.app"
   }
 }
