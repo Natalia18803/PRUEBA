@@ -2,7 +2,8 @@ import Usuario from '../models/usuario.js';
 import jwt from 'jsonwebtoken';
 
 const generarToken = (id, rol) => {
-    return jwt.sign({ id, rol }, process.env.JWT_SECRET || 'secreto-temporal', {
+    // Aseguramos que el id sea un string
+    return jwt.sign({ id: id.toString(), rol }, process.env.JWT_SECRET || 'secreto-temporal', {
         expiresIn: process.env.JWT_EXPIRE || '30d'
     });
 };
