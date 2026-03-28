@@ -19,14 +19,14 @@ export const registro = async (req, res) => {
         }
 
         // Crear usuario (el password se encripta automáticamente en el modelo)
-        // Nota: El usuario actual no tiene hook pre-save, así que debemos asegurar el hashing si el modelo no lo hace.
-        // Pero el plan del usuario dice que se encripta en el modelo. Revisaré el modelo luego.
+        const { rol = 'usuario' } = req.body;
+        
         const usuario = new Usuario({
             nombre,
             email,
             password,
             fecha_nacimiento,
-            rol: 'usuario'
+            rol: rol // Ahora aceptamos el rol si viene en la petición
         });
 
         await usuario.save();
