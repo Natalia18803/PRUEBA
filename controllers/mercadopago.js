@@ -42,13 +42,15 @@ export const crearPreferencia = async (req, res) => {
 
 export const recibirNotificacion = async (req, res) => {
     try {
-        const { type } = req.query; // MP envía: ?topic=payment&id=123 o ?type=payment&data.id=123
+        // MP envía datos via Query (IPN) o Body JSON (Webhooks)
+        const type = req.query.type || req.query.topic || req.body?.type || req.body?.topic;
+        const paymentId = req.query['data.id'] || req.query.id || req.body?.data?.id;
 
-        // Validar tipo de notificación
-        if (type === "payment" || req.query.topic === "payment") {
-            const paymentId = req.query['data.id'] || req.query.id;
+        // Validar que tengamos un ID válido de un evento de pago
+        if ((type === "payment" || type === "payment.created" || type === "payment.updated") && paymentId) {
             
             configureMercadoPago();
+            
             // Buscar la información completa del pago en MP
             const payment = await mercadopago.payment.findById(paymentId);
             const data = payment.body;
@@ -56,7 +58,7 @@ export const recibirNotificacion = async (req, res) => {
             if (data.status === 'approved') {
                 const usuarioId = data.external_reference;
                 
-                // Evitar cobros dobles si MercadoPago envía el webpack dos veces
+                // Evitar cobros dobles si MercadoPago envía el webhook dos veces
                 const existe = await Pago.findOne({ mercadopago_id: paymentId });
                 if (!existe) {
                     const fecha_vencimiento = new Date();
@@ -72,6 +74,12 @@ export const recibirNotificacion = async (req, res) => {
                     });
                     
                     await nuevoPago.save();
+                    
+                    // Actualizamos explícitamente el "estado" a 'activo' para los dashboards
+                    import('../models/usuario.js').then(async ({ default: Usuario }) => {
+                        await Usuario.findByIdAndUpdate(usuarioId, { estado: 'activo' });
+                    }).catch(console.error);
+
                     console.log(`✅ [Webhook] Pago exitoso ID: ${paymentId} vinculado al usuario ${usuarioId}`);
                 }
             } else {
