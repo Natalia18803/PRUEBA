@@ -20,14 +20,13 @@ export const registro = async (req, res) => {
         }
 
         // Crear usuario (el password se encripta automáticamente en el modelo)
-        const { rol = 'usuario' } = req.body;
-        
+        // Forzamos el rol a 'usuario' en el endpoint público para evitar la inyección de privilegios (Role Injection)
         const usuario = new Usuario({
             nombre,
             email,
             password,
             fecha_nacimiento,
-            rol: rol // Ahora aceptamos el rol si viene en la petición
+            rol: 'usuario'
         });
 
         await usuario.save();

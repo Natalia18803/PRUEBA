@@ -8,51 +8,7 @@ const generarToken = (id) => {
     });
 };
 
-// --- RUTAS DE AUTENTICACIÓN ---
-
-export const registro = async (req, res) => {
-    try {
-        const { nombre, email, password, fecha_nacimiento } = req.body;
-
-        const existeUsuario = await Usuario.findOne({ email });
-        if (existeUsuario) {
-            return res.status(400).json({ error: 'El email ya está registrado' });
-        }
-
-        const usuario = new Usuario({ nombre, email, password, fecha_nacimiento });
-        await usuario.save();
-
-        const token = generarToken(usuario._id);
-
-        res.status(201).json({
-            message: 'Usuario registrado exitosamente',
-            token,
-            usuario: { id: usuario._id, nombre, email }
-        });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-};
-
-export const login = async (req, res) => {
-    try {
-        const { email, password } = req.body;
-        const usuario = await Usuario.findOne({ email });
-
-        if (!usuario || !(await usuario.compararPassword(password))) {
-            return res.status(401).json({ error: 'Credenciales inválidas' });
-        }
-
-        const token = generarToken(usuario._id);
-        res.json({
-            message: 'Login exitoso',
-            token,
-            usuario: { id: usuario._id, nombre: usuario.nombre, email: usuario.email }
-        });
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-};
+// Rutas de autenticacion (registro/login) eliminadas, ahora están en authControllers.js
 
 // --- RUTAS DE GESTIÓN (CRUD) ---
 

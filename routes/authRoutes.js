@@ -12,8 +12,12 @@ router.post('/registro', [
     body('email', 'El email es obligatorio').isEmail(),
     body('password', 'El password debe tener al menos 6 caracteres').isLength({ min: 6 }),
     body('fecha_nacimiento', 'La fecha de nacimiento es obligatoria').not().isEmpty(),
+    body('fecha_nacimiento', 'Debe ser una fecha válida').isISO8601().toDate(),
     body('fecha_nacimiento').custom((value) => {
         const date = new Date(value);
+        if (isNaN(date.getTime())) {
+            throw new Error('La fecha proporcionada no es válida');
+        }
         if (date > new Date()) {
             throw new Error('La fecha de nacimiento no puede ser futura');
         }

@@ -39,14 +39,13 @@ const usuarioSchema = new mongoose.Schema({
 });
 
 // Middleware para encriptar password antes de guardar
-usuarioSchema.pre('save', async function(next) {
+usuarioSchema.pre('save', async function() {
     if (!this.isModified('password')) {
-        return next();
+        return;
     }
     const rounds = parseInt(process.env.BCRYPT_ROUNDS, 10) || 10;
     const salt = await bcrypt.genSalt(rounds);
     this.password = await bcrypt.hash(this.password, salt);
-    next();
 });
 
 // Metodo para comparar passwords
