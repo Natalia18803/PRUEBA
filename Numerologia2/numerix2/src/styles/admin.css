@@ -1,0 +1,203 @@
+.admin-container {
+    padding: 2rem;
+    color: white;
+    background: rgba(10, 11, 30, 0.4);
+    border-radius: 20px;
+    border: 1px solid rgba(219, 192, 101, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2.5rem;
+}
+
+.admin-title {
+    font-family: 'Cinzel', serif;
+    font-size: 2rem;
+    color: #dbc065;
+    text-shadow: 0 0 15px rgba(219, 192, 101, 0.3);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.stat-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 1.5rem;
+    border-radius: 15px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.stat-value {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: #8a8d9b;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.admin-tabs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 1rem;
+}
+
+.tab-btn {
+    background: none;
+    border: none;
+    color: #8a8d9b;
+    padding: 0.8rem 1.5rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+}
+
+.tab-btn.active {
+    color: #dbc065;
+    background: rgba(219, 192, 101, 0.1);
+}
+
+.cosmic-table-container {
+    overflow-x: auto;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+}
+
+.cosmic-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.cosmic-table th {
+    padding: 1.2rem;
+    color: #dbc065;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid rgba(219, 192, 101, 0.2);
+}
+
+.cosmic-table td {
+    padding: 1.2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 0.9rem;
+    color: #e0e0e0;
+}
+
+.status-badge {
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.status-active {
+    background: rgba(46, 213, 115, 0.1);
+    color: #2ed573;
+    border: 1px solid rgba(46, 213, 115, 0.2);
+}
+
+.status-inactive {
+    background: rgba(255, 71, 87, 0.1);
+    color: #ff4757;
+    border: 1px solid rgba(255, 71, 87, 0.2);
+}
+
+.action-btns {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.admin-action-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    padding: 0.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.admin-action-btn:hover {
+    background: rgba(219, 192, 101, 0.2);
+    border-color: #dbc065;
+}
+
+.btn-danger:hover {
+    background: rgba(255, 71, 87, 0.2);
+    border-color: #ff4757;
+}
+
+.add-admin-form {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 2rem;
+    border-radius: 15px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.cosmic-input-group {
+    margin-bottom: 1.5rem;
+}
+
+.cosmic-label {
+    display: block;
+    color: #dbc065;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.cosmic-input {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.8rem;
+    color: white;
+    border-radius: 8px;
+    outline: none;
+}
+
+.cosmic-input:focus {
+    border-color: #dbc065;
+}
+
+.search-bar {
+    margin-bottom: 1.5rem;
+}
+
+.search-input {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(219, 192, 101, 0.1);
+    padding: 0.8rem 1.5rem;
+    border-radius: 30px;
+    color: white;
+    width: 300px;
+    outline: none;
+}

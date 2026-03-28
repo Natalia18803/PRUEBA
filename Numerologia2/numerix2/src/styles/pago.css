@@ -1,0 +1,356 @@
+/* PAGO COMPONENT STYLES */
+
+.pago-layout {
+  --bg-main: #0b0c10;
+  --bg-card: #15161d;
+  --bg-input: #0f1016;
+  --accent-gold: #dbc065;
+  --text-white: #ffffff;
+  --text-grey: #8a8d9b;
+  --border-subtle: rgba(255, 255, 255, 0.05);
+
+  background-color: var(--bg-main);
+  min-height: 100vh;
+  color: var(--text-white);
+  font-family: 'Inter', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem;
+}
+
+.pago-header {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.back-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-grey);
+  text-decoration: none;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+
+.back-link:hover {
+  color: var(--text-white);
+}
+
+.pago-container {
+  max-width: 800px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+/* Left Column */
+.pago-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.pago-title {
+  color: var(--accent-gold);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.5px;
+}
+
+.pago-desc {
+  color: var(--text-grey);
+  font-size: 0.75rem;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+  max-width: 350px;
+}
+
+.plan-summary-card {
+  background-color: var(--bg-card);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.summary-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.summary-label {
+  color: var(--accent-gold);
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.currency-select {
+  background-color: var(--bg-input);
+  color: var(--text-white);
+  border: 1px solid var(--accent-gold);
+  border-radius: 4px;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.65rem;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  outline: none;
+}
+
+.summary-price-box {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 0.5rem;
+}
+
+.summary-price {
+  text-align: left;
+}
+
+.summary-price-amount {
+  color: var(--accent-gold);
+  font-weight: 600;
+  font-size: 0.9rem;
+  display: block;
+}
+
+.summary-price-period {
+  color: var(--text-grey);
+  font-size: 0.65rem;
+}
+
+.summary-plan-name {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 2rem;
+}
+
+.summary-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2rem 0;
+}
+
+.summary-features li {
+  font-size: 0.8rem;
+  color: var(--text-grey);
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.summary-features li svg {
+  color: var(--accent-gold);
+  flex-shrink: 0;
+}
+
+.summary-divider {
+  height: 1px;
+  background-color: var(--border-subtle);
+  margin-bottom: 1.5rem;
+}
+
+.summary-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.summary-total-label {
+  font-size: 0.85rem;
+  color: var(--text-white);
+}
+
+.summary-total-amount {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--accent-gold);
+}
+
+.encryption-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-grey);
+  font-size: 0.6rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.encryption-badge svg {
+  color: var(--text-grey);
+}
+
+/* Right Column (Payment Form) */
+.payment-card {
+  background-color: var(--bg-card);
+  border-radius: 12px;
+  padding: 1.8rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.payment-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
+.form-label {
+  display: block;
+  color: var(--text-grey);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+.form-input {
+  width: 100%;
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  padding: 0.6rem 0.8rem;
+  color: var(--text-white);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
+  transition: border-color 0.2s;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: rgba(219, 192, 101, 0.4);
+}
+
+.form-input::placeholder {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.input-icon {
+  position: absolute;
+  right: 0.8rem;
+  top: 1.8rem;
+  color: var(--text-grey);
+  pointer-events: none;
+}
+
+.submit-btn {
+  background-color: var(--accent-gold);
+  color: #000;
+  border: none;
+  border-radius: 6px;
+  padding: 0.8rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.submit-btn:hover {
+  background-color: #ebd076;
+  transform: translateY(-2px);
+}
+
+.terms-text {
+  text-align: center;
+  font-size: 0.6rem;
+  color: var(--text-grey);
+  margin-top: 1rem;
+  line-height: 1.4;
+}
+
+.payment-brands {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.brand-icon {
+  width: 30px;
+  height: 20px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Footer (inside gateway) */
+.gateway-footer {
+  width: 100%;
+  border-top: 1px dashed var(--border-subtle);
+  padding-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.gateway-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.gateway-links a {
+  color: var(--accent-gold);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-decoration: none;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.gateway-links a:hover {
+  opacity: 1;
+}
+
+.gateway-copy {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 0.6rem;
+  letter-spacing: 0.5px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .pago-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}

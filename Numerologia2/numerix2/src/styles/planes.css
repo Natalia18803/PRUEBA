@@ -1,0 +1,414 @@
+/* PLANES PAGE STYLES */
+
+.planes-main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4rem 2rem;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex: 1; /* Take remaining height */
+}
+
+.planes-hero {
+  text-align: center;
+  margin-bottom: 4rem;
+  max-width: 1200px;
+}
+
+.planes-hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.planes-subtitle {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 850px;
+  margin-bottom: 5rem;
+  align-items: center; /* Centers the side cards vertically relative to the middle one */
+}
+
+/* Pricing Cards */
+.pricing-card {
+  background: rgba(15, 16, 22, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 1.5rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 380px;
+  position: relative;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.regular-card {
+  height: 380px;
+}
+
+.popular-card {
+  height: 440px; /* Taller */
+  background: linear-gradient(180deg, rgba(24, 25, 34, 0.9) 0%, rgba(15, 16, 22, 0.95) 100%);
+  border: 1px solid rgba(219, 192, 101, 0.3); /* Gold tint border */
+  box-shadow: 0 0 30px rgba(219, 192, 101, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  z-index: 2;
+}
+
+.popular-card::before {
+  content: '';
+  position: absolute;
+  top: -10%; left: -10%; right: -10%; bottom: -10%;
+  background: radial-gradient(circle at center, rgba(219, 192, 101, 0.15) 0%, transparent 60%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.popular-badge {
+  position: absolute;
+  top: 0;
+  right: 2rem;
+  background: var(--accent-gold);
+  color: #000;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 0.4rem 1rem;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  text-transform: uppercase;
+}
+
+.card-top-content {
+  flex-grow: 1;
+}
+
+.tier-level {
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: rgba(255, 255, 255, 0.5);
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+.tier-name {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.price-block {
+  margin-bottom: 1.8rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.price {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: white;
+}
+
+.duration {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.75rem;
+}
+
+.features-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem 0;
+}
+
+.features-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  margin-bottom: 0.8rem;
+  font-size: 0.75rem;
+}
+
+.feature-text {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.gold-star {
+  color: var(--accent-gold);
+  font-size: 0.8rem;
+  margin-top: 0.1rem;
+}
+
+/* Oracle Specific Box */
+.oracle-box {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  padding: 0.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.oracle-title {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.65rem;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+  text-transform: uppercase;
+}
+
+.oracle-title svg {
+  width: 12px;
+  height: 12px;
+}
+
+.oracle-box p {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.65rem;
+  line-height: 1.3;
+  margin: 0;
+}
+
+/* Plan Buttons */
+.plan-btn {
+  width: 100%;
+  padding: 0.8rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dark-plan-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.dark-plan-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.gold-plan-btn {
+  background: var(--accent-gold);
+  border: none;
+  color: #000;
+  box-shadow: 0 4px 15px rgba(219, 192, 101, 0.3);
+}
+
+.gold-plan-btn:hover {
+  background: #f0d575; /* lightly brighter */
+  box-shadow: 0 6px 20px rgba(219, 192, 101, 0.5);
+  transform: translateY(-2px);
+}
+
+/* Bottom Box */
+.planes-bottom-box {
+  background: rgba(10, 11, 16, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  padding: 3rem 4rem;
+  width: 100%;
+  max-width: 1000px;
+  gap: 4rem;
+  margin-bottom: 4rem;
+}
+
+.bottom-box-text {
+  flex: 1;
+}
+
+.bottom-box-text h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.bottom-box-text p {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.stats-row {
+  display: flex;
+  gap: 3rem;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.stat-num {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.stat-label {
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 1px;
+}
+
+.bottom-box-graphic {
+  width: 200px;
+  height: 200px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.radar-circle {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  border-radius: 50%;
+  border: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+.radar-line-h {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.radar-line-v {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  height: 100%;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.radar-ring {
+  position: absolute;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.radar-ring.r1 { width: 40%; height: 40%; }
+.radar-ring.r2 { width: 70%; height: 70%; }
+
+.radar-dot {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: var(--accent-gold);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--accent-gold);
+}
+
+/* Arbitrary positions for dots on the radar */
+.radar-dot { top: 20%; left: 70%; }
+.radar-dot.d2 { top: 75%; left: 30%; }
+
+/* Footer */
+.legal-footer {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding-top: 3rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.footer-links {
+  display: flex;
+  gap: 3rem;
+}
+
+.footer-links a {
+  color: rgba(255, 255, 255, 0.4);
+  text-decoration: none;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  color: var(--accent-gold);
+}
+
+.legal-footer p {
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+}
+
+.social-circles {
+  display: flex;
+  gap: 1rem;
+}
+
+.circle-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.circle-icon:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .pricing-grid {
+    grid-template-columns: 1fr;
+    max-width: 500px;
+  }
+  
+  .popular-card {
+    height: auto;
+  }
+  
+  .regular-card {
+    height: auto;
+  }
+
+  .planes-bottom-box {
+    flex-direction: column;
+    padding: 2rem;
+    text-align: center;
+    gap: 2rem;
+  }
+
+  .stats-row {
+    justify-content: center;
+  }
+}
