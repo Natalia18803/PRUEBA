@@ -161,19 +161,19 @@
             <form @submit.prevent="registerAdmin" novalidate>
               <div class="cosmic-input-group">
                 <label class="cosmic-label">Nombre Completo</label>
-                <input type="text" v-model="newAdmin.nombre" class="cosmic-input" required />
+                <input type="text" v-model="newAdmin.nombre" class="cosmic-input" />
               </div>
               <div class="cosmic-input-group">
                 <label class="cosmic-label">Email Celestial</label>
-                <input type="email" v-model="newAdmin.email" class="cosmic-input" required />
+                <input type="email" v-model="newAdmin.email" class="cosmic-input" />
               </div>
               <div class="cosmic-input-group">
                 <label class="cosmic-label">Llama Cósmica (Password)</label>
-                <input type="password" v-model="newAdmin.password" class="cosmic-input" required />
+                <input type="password" v-model="newAdmin.password" class="cosmic-input" />
               </div>
                <div class="cosmic-input-group">
                 <label class="cosmic-label">Fecha de Nacimiento</label>
-                <input type="date" v-model="newAdmin.fecha_nacimiento" class="cosmic-input" :max="todayDate" required />
+                <input type="date" v-model="newAdmin.fecha_nacimiento" class="cosmic-input" />
               </div>
               <button type="submit" class="primary-btn" style="width: 100%; margin-top: 1rem;">CREAR ADMINISTRADOR</button>
             </form>

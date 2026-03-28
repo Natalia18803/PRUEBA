@@ -1,4 +1,4 @@
-import{$ as e,t}from"./sweetalert2.all-CK1MqtaF.js";var n=e(t(),1),r=e=>{let t=localStorage.getItem(`userName`)||`Buscador de la Verdad`;n.default.fire({title:`Editar Usuario`,html:`
+import{Q as e,t}from"./sweetalert2.all-D0LL39vG.js";var n=e(t(),1),r=e=>{let t=localStorage.getItem(`userName`)||`Buscador de la Verdad`;n.default.fire({title:`Editar Usuario`,html:`
       <div style="text-align: left; margin-top: 1rem; width: 100%;">
         <label style="color: #dbc065; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 0.5rem; font-weight: 600;">Nombre Cósmico</label>
         <input id="swal-input-name" class="swal2-input" value="${t}" readonly style="background: rgba(15, 16, 22, 0.5); color: #8a8d9b; border: 1px solid rgba(255,255,255,0.05); margin: 0; width: 100%; font-size: 0.9rem; padding: 0.8rem; cursor: not-allowed; box-sizing: border-box;">

@@ -157,7 +157,6 @@ const handleAction = async () => {
               v-model="userName"
               placeholder="Tu nombre completo" 
               class="portal-input"
-              required
             />
           </div>
         </div>
@@ -174,7 +173,6 @@ const handleAction = async () => {
             v-model="userEmail"
             placeholder="email@cosmos.com" 
             class="portal-input"
-            required
           />
         </div>
       </div>
@@ -191,8 +189,6 @@ const handleAction = async () => {
               type="date" 
               v-model="userBirthDate"
               class="portal-input"
-              :max="todayDate"
-              required
             />
           </div>
         </div>
@@ -210,7 +206,6 @@ const handleAction = async () => {
             v-model="userPassword"
             placeholder="••••••••" 
             class="portal-input password-input"
-            required
           />
           <button 
             type="button" 
