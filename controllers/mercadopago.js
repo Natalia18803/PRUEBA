@@ -33,7 +33,7 @@ export const crearPreferencia = async (req, res) => {
                 pending: `${frontendUrl}/#/dashboard?payment=pending`
             },
             auto_return: "approved",
-            external_reference: usuarioId,
+            external_reference: String(usuarioId),
             notification_url: `${backendUrl}/api/mercadopago/webhook`
         });
 
