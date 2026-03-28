@@ -120,6 +120,7 @@
 import { ref, onMounted, computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import Swal from 'sweetalert2';
+import api from '../services/api';
 import '../styles/pago.css';
 
 const route = useRoute();
@@ -162,24 +163,40 @@ onMounted(() => {
   }
 });
 
-const handlePayment = () => {
+const handlePayment = async () => {
   isProcessing.value = true;
-  setTimeout(() => {
+  
+  try {
+    // Calculamos el monto siempre en COP para enviarlo a MercadoPago (que en el backend está configurado en COP)
+    let montoAEnviar = planPriceUSD.value;
+    if (selectedCurrency.value !== 'COP') {
+      montoAEnviar = planPriceUSD.value * rates['COP'];
+    }
+
+    const res = await api.post('/api/mercadopago/create_preference', {
+      titulo: `Suscripción - ${planName.value}`,
+      monto: montoAEnviar
+    });
+
+    if (res.data.success) {
+      // Usamos sandbox_init_point para pruebas, o init_point para producción
+      window.location.href = res.data.sandbox_init_point; 
+    } else {
+      Swal.fire('Alineación Interrumpida', 'No se generó el portal de pago.', 'error');
+      isProcessing.value = false;
+    }
+  } catch (error) {
     isProcessing.value = false;
+    const msg = error.response?.data?.error || 'Error conectando con la pasarela celestial.';
     Swal.fire({
-      title: '¡Ofrenda Recibida!',
-      text: `Se ha confirmado tu aporte de ${displayedPrice.value}. Ya formas parte del colectivo cósmico.`,
-      icon: 'success',
+      title: 'Desvío de Energía',
+      text: msg,
+      icon: 'error',
       background: '#15161d',
       color: '#ffffff',
       confirmButtonColor: '#dbc065',
-      confirmButtonText: 'Acceder al Santuario',
-      customClass: {
-        popup: 'cosmic-swal'
-      }
-    }).then(() => {
-      router.push('/dashboard');
+      customClass: { popup: 'cosmic-swal' }
     });
-  }, 2000);
+  }
 };
 </script>
