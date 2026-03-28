@@ -187,10 +187,11 @@ const handlePayment = async () => {
     }
   } catch (error) {
     isProcessing.value = false;
+    const backendMsg = error.response?.data?.detalles ? `Detalles: ${error.response.data.detalles}` : '';
     const msg = error.response?.data?.error || 'Error conectando con la pasarela celestial.';
     Swal.fire({
       title: 'Desvío de Energía',
-      text: msg,
+      text: `${msg} ${backendMsg}`,
       icon: 'error',
       background: '#15161d',
       color: '#ffffff',
