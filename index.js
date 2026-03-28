@@ -38,8 +38,16 @@ app.use(cors({
 // 1. Indicar la carpeta de archivos estáticos
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Conectar a MongoDB
-conectarMongo();
+// Conectar a MongoDB de forma segura para Serverless (Vercel)
+app.use(async (req, res, next) => {
+    try {
+        await conectarMongo();
+        next();
+    } catch (error) {
+        console.error('No se pudo conectar a la base de datos:', error);
+        res.status(500).json({ error: 'Error interno del servidor (Base de datos)' });
+    }
+});
 
 // Helper para generar token
 const generarToken = (id) => {
