@@ -2,8 +2,16 @@ import jwt from 'jsonwebtoken';
 import Usuario from '../models/usuario.js';
 
 const validarJWT = async (req, res, next) => {
-    // 1. Obtener el token del header
-    const token = req.header('x-token');
+    // 1. Obtener el token del header (x-token o Authorization)
+    let token = req.header('x-token');
+    
+    // Si no viene en x-token, buscar en Authorization: Bearer <token>
+    if (!token && req.header('Authorization')) {
+        const authHeader = req.header('Authorization');
+        if (authHeader.startsWith('Bearer ')) {
+            token = authHeader.split(' ')[1];
+        }
+    }
     
     if (!token) {
         return res.status(401).json({ 
