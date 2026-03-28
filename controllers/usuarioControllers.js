@@ -58,8 +58,18 @@ export const login = async (req, res) => {
 
 export const getAllUsuarios = async (req, res) => {
     try {
-        const usuarios = await Usuario.find().select('-password'); // No enviamos el password por seguridad
-        res.json({ usuarios });
+        const usuarios = await Usuario.find().select('-password');
+        
+        // Añadir estado de membresía dinámico a cada usuario para el admin
+        const usuariosConEstado = await Promise.all(usuarios.map(async (u) => {
+            const isSubscribed = await u.isMembershipActive();
+            return {
+                ...u._doc,
+                isSubscribed
+            };
+        }));
+
+        res.json({ usuarios: usuariosConEstado });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -77,12 +87,19 @@ export const getUsuarioById = async (req, res) => {
 
 export const updateUsuario = async (req, res) => {
     try {
-        const { nombre, email, fecha_nacimiento } = req.body;
+        const { nombre, email, fecha_nacimiento, rol, estado } = req.body;
+        const updateData = { nombre, email, fecha_nacimiento };
+        
+        // Solo permitir actualizar rol y estado si vienen en el body (útil para admin)
+        if (rol) updateData.rol = rol;
+        if (estado) updateData.estado = estado;
+
         const usuarioActualizado = await Usuario.findByIdAndUpdate(
             req.params.id, 
-            { nombre, email, fecha_nacimiento },
+            updateData,
             { new: true }
-        );
+        ).select('-password');
+        
         res.json({ message: 'Usuario actualizado', usuario: usuarioActualizado });
     } catch (error) {
         res.status(500).json({ error: error.message });
