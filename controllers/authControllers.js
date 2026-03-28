@@ -46,7 +46,8 @@ export const registro = async (req, res) => {
             }
         });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        console.error('SERVER ERROR:', error);
+        res.status(500).json({ error: 'Error del servidor', mensaje: error.message });
     }
 };
 
@@ -83,7 +84,8 @@ export const login = async (req, res) => {
             }
         });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        console.error('SERVER ERROR:', error);
+        res.status(500).json({ error: 'Error del servidor', mensaje: error.message });
     }
 };
 

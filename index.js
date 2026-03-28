@@ -30,9 +30,9 @@ const app = express();
 // Middleware para parsear JSON
 app.use(express.json());
 app.use(cors({
-    origin: '*', // En producción podrías especificar tu dominio de Vercel
+    origin: '*',
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+    allowedHeaders: ['Content-Type', 'Authorization', 'x-token']
 }));
 
 // 1. Indicar la carpeta de archivos estáticos
