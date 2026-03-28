@@ -197,7 +197,7 @@ const handleAction = async () => {
       <div class="input-group">
         <div class="label-container">
           <label class="input-label">LLAVE CÓSMICA</label>
-          <a href="#" class="forgot-link" v-if="isLoginMode">¿OLVIDASTE LA LLAVE?</a>
+          <router-link to="/forgot-password" class="forgot-link" v-if="isLoginMode">¿OLVIDASTE LA LLAVE?</router-link>
         </div>
         <div class="input-wrapper">
           <span class="input-icon">🗝️</span>

@@ -43,7 +43,6 @@ router.post('/principal/:usuario_id',
   check('usuario_id', 'No es un ID válido').isMongoId(),
   check('usuario_id').custom(existeUsuarioPorId),
   validarCampos,
-  validarEstado,
   lecturaControllers.generarLecturaPrincipal
 );
 
@@ -51,7 +50,6 @@ router.post('/diaria/:usuario_id',
   check('usuario_id', 'No es un ID válido').isMongoId(),
   check('usuario_id').custom(existeUsuarioPorId),
   validarCampos,
-  validarEstado,
   lecturaControllers.generarLecturaDiaria
 );
 

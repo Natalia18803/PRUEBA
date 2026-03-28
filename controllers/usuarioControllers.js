@@ -1,4 +1,5 @@
 import Usuario from '../models/usuario.js';
+import Pago from '../models/pago.js';
 import jwt from 'jsonwebtoken';
 
 // Helper para generar el Token (Asegúrate de tener JWT_SECRET en tu .env)
@@ -44,7 +45,7 @@ export const getUsuarioById = async (req, res) => {
 
 export const updateUsuario = async (req, res) => {
     try {
-        const { nombre, email, fecha_nacimiento, rol, estado } = req.body;
+        const { nombre, email, fecha_nacimiento, rol, estado, forcePremium } = req.body;
         const updateData = { nombre, email, fecha_nacimiento };
         
         // Solo permitir actualizar rol y estado si vienen en el body (útil para admin)
@@ -56,6 +57,21 @@ export const updateUsuario = async (req, res) => {
             updateData,
             { new: true }
         ).select('-password');
+        
+        // Lógica de Otorgar Suscripción Manual (por 1 mes)
+        if (forcePremium) {
+            const vencimiento = new Date();
+            vencimiento.setMonth(vencimiento.getMonth() + 1);
+            
+            const pagoManual = new Pago({
+                usuario_id: req.params.id,
+                monto: 0,
+                fecha_vencimiento: vencimiento,
+                metodo: 'Suscripción Manual (Admin)',
+                estado_pago: 'aprobado'
+            });
+            await pagoManual.save();
+        }
         
         res.json({ message: 'Usuario actualizado', usuario: usuarioActualizado });
     } catch (error) {

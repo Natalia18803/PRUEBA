@@ -108,3 +108,38 @@ export const obtenerUsuario = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
+// Registro de Administrador - Solo accesible por admins autenticados
+export const registroAdmin = async (req, res) => {
+    try {
+        const { nombre, email, password, fecha_nacimiento } = req.body;
+
+        const existeUsuario = await Usuario.findOne({ email });
+        if (existeUsuario) {
+            return res.status(400).json({ error: 'El email ya está registrado' });
+        }
+
+        const usuario = new Usuario({
+            nombre,
+            email,
+            password,
+            fecha_nacimiento,
+            rol: 'admin'
+        });
+
+        await usuario.save();
+
+        res.status(201).json({
+            message: 'Administrador creado exitosamente',
+            usuario: {
+                id: usuario._id,
+                nombre: usuario.nombre,
+                email: usuario.email,
+                rol: usuario.rol
+            }
+        });
+    } catch (error) {
+        console.error('SERVER ERROR:', error);
+        res.status(500).json({ error: 'Error del servidor', mensaje: error.message });
+    }
+};

@@ -72,11 +72,10 @@
             <table class="cosmic-table">
               <thead>
                 <tr>
-                  <th>Nombre</th>
-                  <th>Email</th>
-                  <th>Rol</th>
-                  <th>Suscripción</th>
-                  <th>Estado</th>
+                  <th @click="sortBy('nombre')" style="cursor: pointer;">Nombre {{ sortColumn === 'nombre' ? (sortDesc ? '↓' : '↑') : '' }}</th>
+                  <th @click="sortBy('email')" style="cursor: pointer;">Email {{ sortColumn === 'email' ? (sortDesc ? '↓' : '↑') : '' }}</th>
+                  <th @click="sortBy('rol')" style="cursor: pointer;">Rol {{ sortColumn === 'rol' ? (sortDesc ? '↓' : '↑') : '' }}</th>
+                  <th>Status / Membresía</th>
                   <th>Acciones</th>
                 </tr>
               </thead>
@@ -86,21 +85,21 @@
                   <td>{{ user.email }}</td>
                   <td>{{ user.rol }}</td>
                   <td>
-                    <span :class="['status-badge', user.isSubscribed ? 'status-active' : 'status-inactive']">
-                      {{ user.isSubscribed ? 'Activa' : 'Sin Suscripción' }}
-                    </span>
-                  </td>
-                  <td>
-                    <span :class="['status-badge', user.estado === 'activo' ? 'status-active' : 'status-inactive']">
-                      {{ user.estado }}
-                    </span>
+                    <div style="display: flex; flex-direction: column; gap: 4px;">
+                      <span :class="['status-badge', user.estado === 'activo' ? 'status-active' : 'status-inactive']">
+                        Cuenta: {{ user.estado }}
+                      </span>
+                      <span :class="['status-badge', user.isSubscribed ? 'status-active' : 'status-inactive']" style="font-size: 0.75rem; opacity: 0.8;">
+                        {{ user.isSubscribed ? 'Premium' : 'Free' }}
+                      </span>
+                    </div>
                   </td>
                   <td class="action-btns">
+                    <button class="admin-action-btn" @click="openEditModal(user)" title="Editar Buscador">
+                      ✏️
+                    </button>
                     <button class="admin-action-btn" @click="toggleUserStatus(user)" title="Cambiar Estado">
                       🔄
-                    </button>
-                    <button class="admin-action-btn" @click="promoteToAdmin(user)" v-if="user.rol !== 'admin'" title="Hacer Admin">
-                      👑
                     </button>
                     <button class="admin-action-btn btn-danger" @click="deleteUser(user)" title="Eliminar">
                       🗑️
@@ -179,11 +178,47 @@
             </form>
           </div>
 
+          <!-- Modal Edit User -->
+          <div v-if="showEditModal" class="modal-overlay" @click.self="showEditModal = false">
+            <div class="modal-content cosmic-card" style="padding: 30px; border-radius: 12px; background: #0a0b1e; border: 1px solid #dbc065;">
+              <h3 class="cosmic-label" style="font-size: 1.2rem; margin-bottom: 2rem; text-align: center;">Editar Buscador</h3>
+              <form @submit.prevent="saveUserEdit" novalidate>
+                <div class="cosmic-input-group" style="margin-bottom: 1rem;">
+                  <label class="cosmic-label">Nombre</label>
+                  <input type="text" v-model="editingUser.nombre" class="cosmic-input" />
+                </div>
+                <div class="cosmic-input-group" style="margin-bottom: 1rem;">
+                  <label class="cosmic-label">Email</label>
+                  <input type="email" v-model="editingUser.email" class="cosmic-input" />
+                </div>
+                <div class="cosmic-input-group" style="margin-bottom: 1rem;">
+                  <label class="cosmic-label">Rol</label>
+                  <select v-model="editingUser.rol" class="cosmic-input" style="background:#12132a;">
+                    <option value="usuario">Usuario</option>
+                    <option value="admin">Admin</option>
+                  </select>
+                </div>
+                <div class="cosmic-input-group" v-if="!editingUser.isSubscribed" style="margin-bottom: 1.5rem;">
+                  <label class="cosmic-label" style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                    <input type="checkbox" v-model="editingUser.forcePremium" style="width:16px; height:16px;" />
+                    Forzar Suscripción Manual (1 Mes)
+                  </label>
+                </div>
+                <div style="display:flex; gap:10px; margin-top:1.5rem;">
+                  <button type="button" class="primary-btn" style="flex:1; background: #e74c3c; color: #fff;" @click="showEditModal = false">Cancelar</button>
+                  <button type="submit" class="primary-btn" style="flex:1;">Guardar Cambios</button>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
       </main>
     </div>
   </div>
 </template>
+<style>
+.modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); z-index: 9999; display: flex; justify-content: center; align-items: center; backdrop-filter: blur(4px); }
+</style>
 
 <script setup>
 import { ref, onMounted, computed } from 'vue';
@@ -201,8 +236,22 @@ const searchQuery = ref('');
 const newAdmin = ref({ nombre: '', email: '', password: '', fecha_nacimiento: '' });
 const todayDate = new Date().toISOString().split('T')[0];
 
+const showEditModal = ref(false);
+const editingUser = ref(null);
+const sortColumn = ref('nombre');
+const sortDesc = ref(false);
+
 const openProfileMenu = () => {
   showProfileMenu(router);
+};
+
+const sortBy = (col) => {
+  if (sortColumn.value === col) {
+    sortDesc.value = !sortDesc.value;
+  } else {
+    sortColumn.value = col;
+    sortDesc.value = false;
+  }
 };
 
 const fetchData = async () => {
@@ -222,10 +271,20 @@ const fetchData = async () => {
 };
 
 const filteredUsers = computed(() => {
-    return users.value.filter(u => 
+    let result = users.value.filter(u => 
         u.nombre.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
         u.email.toLowerCase().includes(searchQuery.value.toLowerCase())
     );
+    result.sort((a, b) => {
+        let valA = a[sortColumn.value] || '';
+        let valB = b[sortColumn.value] || '';
+        if (typeof valA === 'string') valA = valA.toLowerCase();
+        if (typeof valB === 'string') valB = valB.toLowerCase();
+        if (valA < valB) return sortDesc.value ? 1 : -1;
+        if (valA > valB) return sortDesc.value ? -1 : 1;
+        return 0;
+    });
+    return result;
 });
 
 const totalRevenue = computed(() => {
@@ -257,13 +316,25 @@ const toggleUserStatus = async (user) => {
     }
 };
 
-const promoteToAdmin = async (user) => {
+const openEditModal = (user) => {
+    editingUser.value = { ...user, forcePremium: false };
+    showEditModal.value = true;
+};
+
+const saveUserEdit = async () => {
     try {
-        await api.put(`/api/usuarios/${user._id}`, { rol: 'admin' });
-        user.rol = 'admin';
-        Swal.fire('Éxito', `${user.nombre} ahora es Administrador Celestial`, 'success');
+        await api.put(`/api/usuarios/${editingUser.value._id}`, {
+            nombre: editingUser.value.nombre,
+            email: editingUser.value.email,
+            rol: editingUser.value.rol,
+            forcePremium: editingUser.value.forcePremium
+        });
+        
+        Swal.fire('Guardado', 'Los cambios cósmicos han sido aplicados.', 'success');
+        showEditModal.value = false;
+        fetchData();
     } catch (error) {
-        Swal.fire('Error', 'No se pudo otorgar el rol administrativo', 'error');
+        Swal.fire('Error', error.response?.data?.error || 'No se pudieron guardar los cambios', 'error');
     }
 };
 

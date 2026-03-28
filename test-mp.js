@@ -1,0 +1,1 @@
+import 'dotenv/config'; import { configureMercadoPago, mercadopago } from './config/mercadopago.js'; configureMercadoPago(); mercadopago.preferences.create({ items: [{ title: 'Sub', quantity: 1, unit_price: 188650, currency_id: 'COP' }], external_reference: '123' }).then(r => console.log('OK', r.body.init_point)).catch(e => console.error('ERR', e.message));
