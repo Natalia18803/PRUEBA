@@ -21,6 +21,7 @@ export const getAllUsuarios = async (req, res) => {
             const isSubscribed = await u.isMembershipActive();
             return {
                 ...u._doc,
+                estado: isSubscribed ? 'activo' : 'inactivo',
                 isSubscribed
             };
         }));

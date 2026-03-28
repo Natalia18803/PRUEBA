@@ -33,13 +33,14 @@ const validarJWT = async (req, res, next) => {
         }
 
         // 4. Inyectar la información REAL y ACTUALIZADA del usuario
+        const isSubscribed = await usuario.isMembershipActive();
         req.usuario = {
             id: usuario._id,
             nombre: usuario.nombre,
             email: usuario.email,
-            estado: usuario.estado, // Mantenemos el campo por compatibilidad, pero...
+            estado: isSubscribed ? 'activo' : 'inactivo', 
             rol: usuario.rol,
-            membresiaActiva: await usuario.isMembershipActive() // ...añadimos el estado real-time
+            membresiaActiva: isSubscribed
         };
         
         next();

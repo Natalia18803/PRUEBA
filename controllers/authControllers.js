@@ -1,5 +1,6 @@
 import Usuario from '../models/usuario.js';
 import jwt from 'jsonwebtoken';
+import { enviarEmailBrevo, generarHtmlBienvenida } from '../services/email.js';
 
 const generarToken = (id, rol) => {
     // Aseguramos que el id sea un string
@@ -44,6 +45,13 @@ export const registro = async (req, res) => {
                 rol: usuario.rol
             }
         });
+
+        // Enviar correo de bienvenida (sin bloquear la respuesta)
+        enviarEmailBrevo(
+            usuario.email,
+            '✦ Bienvenido/a a Aetheric Oracle ✦',
+            generarHtmlBienvenida(usuario.nombre)
+        ).catch(err => console.error('[Email] Error al enviar bienvenida:', err.message));
     } catch (error) {
         console.error('SERVER ERROR:', error);
         res.status(500).json({ error: 'Error del servidor', mensaje: error.message });
